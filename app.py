@@ -1,4 +1,4 @@
-from flask import Flask,render_template, request, redirect, session
+from flask import Flask,render_template, request, redirect, session, url_for
 import json
 import os
 import bcrypt
@@ -21,10 +21,29 @@ def user_exists(email):
         if user["email"]==email:
             return True
     return False
-    
-@app.route("/")
+ 
+app.route("/")
+def index():
+    return redirect(url_for("login")) 
+   
+@app.route("/login", methods=("GET", "POST"))
 def login():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"].encode("utf-8")
+        users = load_users()
+        for user in users["users"]:
+            if user["email"] == email and bcrypt.checkpw(password, user["password"].encode("utf-8")):
+                session["user"]=email
+                return redirect(url_for("index"))
+            return "¡Credenciales incorrectas! intente nuevamente"
     return render_template("login.html")
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        return redirect(url_for("login"))
+    return render_template("register.html")
 
 @app.route("/home")
 def home():
