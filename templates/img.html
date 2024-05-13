@@ -1,12 +1,8 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "base.html" %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+{% block title %} Pruebas Locas {% endblock %}
+
+{% block  content%}
 
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">
@@ -21,27 +17,26 @@
           <button type="button" class="btn btn-secondary">7</button>
         </div>
         <div class="btn-group" role="group" aria-label="Third group">
-          <button type="button" class="btn btn-secondary">8</button>
+          <button type="button" class="btn btn-secondary">8</button> <!-- Se pone en otro div para aparentar una separación-->
         </div>
       </div>
-    <title>Hello, world!</title>
-  </head>
-  <body>
+  
     <h1>Hello, world!</h1>
-    <p>Esto es un párrafo</p>
-    <h2>Aver k pex</h2>
-    <h3>No mames</h3>
+    <p>Esto es un párrafo. Aquí almacené algunas pruebas que estuve haciendo por mí mismo :)</p>
+    <h2>Todo esto fue gracias a <a href="https://www.youtube.com/@DaniDev87">DaniDev87</a></h2>
+    <h3>No puede ser</h3>
     
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="./images/Haida_2.webp" class="d-block w-100" alt="...">
+            <!--<img src="/C:/Users/Jerson/Desktop/Html/images/haida.jpg" class="d-block w-100" alt="Maldita sea">-->
+            <img src="{{ url_for('static', filename='img/haida.jpg') }}" height="300px"; width="550px"> <!--Es necesario tener las imágenes dentro de un archivo específicamente llamado "Static"-->
           </div>
           <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
+            <img src="../images/captura.PNG" alt="Es necesario usar el enrutador de flask para llamar a la imagen (Véase ejemplo 1)">
           </div>
           <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
+            <img src="https://i.pinimg.com/564x/c2/1c/62/c21c626b3e53e569edf9a04ab500f354.jpg" class="d-block w-100" alt="No carga :(" height="400px"; width="250px">
           </div>
         </div>
        <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
@@ -54,10 +49,10 @@
         </button>
       </div>
     
-      <p>No puede ser</p>
+      <p>Backend no sabe centrar un Div :(</p>
 
     <div class="btn-group" role="group"><ul>
-        <button class="btn btn-secondary">Soy un botón</button>
+        <a class="btn btn-secondary" href="https://getbootstrap.com/">Ey, aquí, ¡Soy Diferente!</a> <!--No era necesario poner <a></a> dentro de un <button></button>-->
         <button class="btn btn-sucess">Soy un botón</button>
         <button class="btn btn-danger">Soy un botón</button>
         <li>Nombre</li>
@@ -82,5 +77,4 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
     -->
-  </body>
-</html>
+{% endblock %}

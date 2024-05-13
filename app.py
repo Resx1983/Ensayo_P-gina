@@ -25,6 +25,10 @@ def user_exists(email):
 @app.route("/")
 def index():
     return redirect(url_for("login")) 
+
+@app.route("/img")
+def img():
+    return render_template("/img.html")
    
 @app.route("/login", methods=("GET", "POST"))
 def login():
@@ -35,7 +39,7 @@ def login():
         for user in users["users"]:
             if user["email"] == email and bcrypt.checkpw(password, user["password"].encode("utf-8")):
                 session["user"]=email
-                return redirect(url_for("profile"))
+                return redirect(url_for("home"))
             return "¡Credenciales incorrectas! intente nuevamente"
     return render_template("login.html")
 
@@ -76,7 +80,7 @@ def profile():
 @app.route("/logout")
 def logout():
     session.pop("user", None)
-    return redirect(url_for("/"))
+    return redirect(url_for("login"))
 
 
 
