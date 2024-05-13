@@ -22,7 +22,7 @@ def user_exists(email):
             return True
     return False
  
-app.route("/")
+@app.route("/")
 def index():
     return redirect(url_for("login")) 
    
@@ -35,13 +35,22 @@ def login():
         for user in users["users"]:
             if user["email"] == email and bcrypt.checkpw(password, user["password"].encode("utf-8")):
                 session["user"]=email
-                return redirect(url_for("index"))
+                return redirect(url_for("profile"))
             return "¡Credenciales incorrectas! intente nuevamente"
     return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"].encode("utf-8")
+        if user_exists(email):
+            return "Ñao Ñao, este usuario ya existe. Por favor inicie sesión o regístrese."
+        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+        new_user = {"email": email, "password": hashed_password.decode("utf-8")}
+        users = load_users()
+        users["users"].append(new_user)
+        save_users(users)
         return redirect(url_for("login"))
     return render_template("register.html")
 
@@ -57,8 +66,20 @@ def users():
 def prueba():
     return render_template("prueba.html")
 
+@app.route("/profile")
+def profile():
+    if "user" in session:
+        user_email = session["user"]
+        return render_template("profile.html", user=user_email)
+    return redirect(url_for("login"))
+
+@app.route("/logout")
+def logout():
+    session.pop("user", None)
+    return redirect(url_for("/"))
 
 
 
 if __name__ == "__main__":
+    app.secret_key = "supersecretkey"
     app.run(debug=True) #Debug es aprueba ed errores
